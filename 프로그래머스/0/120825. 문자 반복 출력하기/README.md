@@ -1,6 +1,6 @@
 # [level 0] 문자 반복 출력하기 - 120825 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120825?language=javascript) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/120825) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 01월 20일 22:42:00
+2025년 01월 20일 22:46:48
 
 ### 문제 설명
 
