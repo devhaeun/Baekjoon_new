@@ -1,11 +1,5 @@
-const fact = (n) => {
-    let ans = 1n;
-    for (let i=1n; i<=n; i++) ans*=i;
-    return ans;
-}
+const fact = (num) => num === 0 ? 1 : num * fact(num - 1)
 
 function solution(balls, share) {
-    balls = BigInt(balls);
-    share = BigInt(share);
-    return fact(balls)/(fact(balls-share)*fact(share));
+  return Math.round(fact(balls) / fact(balls - share) / fact(share))
 }
