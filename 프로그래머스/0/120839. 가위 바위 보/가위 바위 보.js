@@ -1,10 +1,8 @@
 function solution(rsp) {
-    let answer = [];
-    rsp = [...rsp];
-    rsp.map(i => {
-        i === '0' ? answer.push('5') :
-        i === '2' ? answer.push('0') :
-        answer.push('2')
-    });
-    return answer.join('')
+    let ans = {
+        '0':'5',
+        '2':'0',
+        '5':'2'
+    };
+    return [...rsp].map(v=>ans[v]).join('');
 }
