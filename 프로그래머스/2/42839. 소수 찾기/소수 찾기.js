@@ -1,14 +1,23 @@
 function solution(numbers) {
-    var result = new Set();
+    const result = new Set();
     
-    function getPermutation (arr, fixed) {
-        if(arr.length >= 1) {
+    const isPrime = (num) => {
+        if (num<=1) return false;
+        if (num===2) return true;
+        for (let i=2; i<=Math.sqrt(num); i++) {
+            if (num%i===0) return false;
+        }
+        return true;
+    }
+    
+    const getPermutation = (arr, fixed) => {
+        if (arr.length>=1) {
             for (let i=0; i<arr.length; i++) {
-                const newFixed = fixed + arr[i];
+                const newFixed = fixed+arr[i];
                 const copyArr = [...arr];
-                copyArr.splice(i, 1);
+                copyArr.splice(i,1);
                 
-                if(isPrimeNumber(parseInt(newFixed))) {
+                if (isPrime(parseInt(newFixed))) {
                     result.add(parseInt(newFixed));
                 }
                 
@@ -17,18 +26,6 @@ function solution(numbers) {
         }
     }
     
-    function isPrimeNumber(num) {
-        if (num <= 1) return false;
-        if (num === 2) return true;
-        for( let i = 2; i <= Math.sqrt(num); i++) {
-           if(num % i === 0) {
-               return false;
-           }
-        }
-        return true;
-    }
-    
-    getPermutation(numbers, '')
-
+    getPermutation(numbers, "");
     return result.size;
 }
