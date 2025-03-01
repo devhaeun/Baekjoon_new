@@ -5,23 +5,18 @@ function solution(progresses, speeds) {
     );
     console.log(days);
     
-    const ans = [];
+    const ans = [0];
     let count = 0;
-    let stdday = 0;
+    let stdday = days[0];
     const pl = progresses.length;
-    for (let i=0; i<pl; i++) {
-        if (i==0) {
-            stdday = days[i];
-            count ++;
-            continue;
+    for (let i=0, j=0; i<pl; i++) {
+        if (days[i]<=stdday) {
+            ans[j]+=1;
         }
-        if (days[i]>stdday) {
-            ans.push(count);
-            count = 1;
+        else {
+            ans[++j]=1;
             stdday = days[i];
         }
-        else count++;
-        if (i==pl-1) ans.push(count);
     }
     return ans;
 }
