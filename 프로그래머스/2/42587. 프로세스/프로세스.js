@@ -11,7 +11,7 @@ function solution(priorities, location) {
             answer++;
             priorities.shift();
             if (idxs.shift() === location) return answer;
+            maxVal = Math.max(...priorities);
         }
-        maxVal = Math.max(...priorities);
     }
 }
