@@ -1,52 +1,44 @@
 function solution(orders, course) {
-    const result = [];
-    const map = new Map();
-    const combinations = [];
+    const answer = [];
     
-    // 메뉴가 2개 이상일 때만 combinations에 담는 것을 재귀적으로 반복
-    const combination = (menus, pick) => {
-        if (pick.length>=2) combinations.push(pick);
+    const getCombinations = function (arr, selectNumber) {
+        const results = [];
+        if (selectNumber===1) return arr.map(el => [el]);
         
-        if (!menus.length) return;
+        arr.forEach((fixed, index, origin) => {
+            const rest = origin.slice(index+1);
+            const combinations = getCombinations(rest, selectNumber-1);
+            const attached = combinations.map(el => [fixed, ...el]);
+            results.push(...attached);
+        });
+        return results;
+    }
+    
+    course.forEach(count => {
+        const hashMap = new Map();
+        orders.forEach(element => {
+            element = element.split("");
+            const divArr = getCombinations(element, count);
+            for (let i=0; i<divArr.length; i++) {
+                let word = divArr[i].sort().join("");
+                hashMap.set(word, hashMap.has(word) ?
+                           hashMap.get(word)+1 : 1);
+            }
+        });
         
-        for (let i=0; i<menus.length; i++) {
-            const picked = menus[i];
-            const deletedMenu = menus.slice(i+1);
-            combination(deletedMenu, pick+picked);
-        }
-    };
-    
-    orders.forEach(order => {
-        combination([...order].sort().join(''), '');
-    });
-    
-    // 모든 조합 순회하면서 같은 조합끼리는 합치고 개수 저장
-    combinations.forEach(menu => {
-        const isExist = map.has(menu);
-        map.set(menu, isExist ? map.get(menu)+1 : 1);
-    });
-    
-    // 모든 조합을 조합의 개수 순서로 오름차순 정렬하고
-    // 1명만 주문한 조합 삭제
-    const menuArr = [...map.entries()]
-        .sort(([_, firstCount], [__, secondCount]) => secondCount-firstCount)
-        .filter(([_, menuCount]) => menuCount!==1);
-    
-    // course를 돌면서 각각의 메뉴 조합의 글자수와 같은 것을 찾고
-    // 메뉴가 기록된 개수보다 조금 주문되었으면 break로 for문 탈출
-    course.forEach(menuLength => {
-        let countMemo = 0;
-        for (let i=0; i<menuArr.length; i++) {
-            const [menu, count] = menuArr[i];
-            
-            if (countMemo > count) break;
-            
-            if (menu.length === menuLength) {
-                if (!countMemo) countMemo = count;
-                result.push(menu);
+        let maxValue = 0;
+        for (let [key, val] of hashMap) {
+            if (maxValue<val && key.length>=2 && val>=2) {
+                maxValue = val;
             }
         }
+        
+        for (let [key, val] of hashMap) {
+            if (maxValue===val) answer.push(key);
+        }
+        
+        hashMap.clear();
     });
     
-    return result.sort();
+    return answer.sort();
 }
