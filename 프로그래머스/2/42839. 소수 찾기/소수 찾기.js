@@ -8,7 +8,7 @@ function solution(numbers) {
             if (num%i===0) return false;
         }
         return true;
-    }
+    };
     
     const getPermutation = (arr, fixed) => {
         if (arr.length>=1) {
@@ -17,14 +17,11 @@ function solution(numbers) {
                 const copyArr = [...arr];
                 copyArr.splice(i,1);
                 
-                if (isPrime(parseInt(newFixed))) {
-                    result.add(parseInt(newFixed));
-                }
-                
+                if (isPrime(+newFixed)) result.add(+newFixed);
                 getPermutation(copyArr, newFixed);
             }
         }
-    }
+    };
     
     getPermutation(numbers, "");
     return result.size;
