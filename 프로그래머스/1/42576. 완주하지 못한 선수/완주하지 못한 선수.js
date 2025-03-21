@@ -1,8 +1,14 @@
 function solution(participant, completion) {
-    participant.sort();
-    completion.sort();
+    const map = new Map();
     
-    for (let i=0; i<participant.length; i++) {
-        if (participant[i]!==completion[i]) return participant[i];
+    participant.forEach(name => {
+        map.set(name, map.has(name) ? map.get(name)+1 : 1);
+    });
+    completion.forEach(name => {
+        map.set(name, map.get(name)-1);
+    });
+    
+    for ([key, value] of map) {
+        if (value>0) return key;
     }
 }
