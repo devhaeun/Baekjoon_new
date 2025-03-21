@@ -13,8 +13,8 @@ function solution(word) {
         
         for (let i=0; i<vowels.length; i++) {
             dfs(cur+vowels[i]);
-        };
-    }
+        }
+    };
     dfs("");
     return count;
 }
