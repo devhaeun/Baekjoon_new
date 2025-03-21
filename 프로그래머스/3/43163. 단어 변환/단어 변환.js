@@ -7,23 +7,24 @@ function solution(begin, target, words) {
             if (w1[i]!==w2[i]) diff++;
             if (diff>1) return false;
         }
-        return diff === 1;
+        return diff===1;
     };
     
     const queue = [[begin, 0]];
-    const visited = new Set(); // 방문한 단어 저장
+    const visited = new Set();
     
     while (queue.length>0) {
-        const [current, count] = queue.shift();
-        if (current===target) return count;
+        const [cur, cnt] = queue.shift();
+        
+        if (cur===target) return cnt;
         
         for (const word of words) {
-            if (!visited.has(word) && isConvertible(current, word)) {
+            if (!visited.has(word) && isConvertible(cur,word)) {
                 visited.add(word);
-                queue.push([word, count+1]);
+                queue.push([word, cnt+1]);
             }
         }
     }
     
-    return 0; // 변환할 수 없는 경우
+    return 0;
 }
