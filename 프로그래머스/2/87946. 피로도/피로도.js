@@ -1,18 +1,27 @@
 function solution(k, dungeons) {
-    let answer = 0;
-    const visited = Array.from({ length: dungeons.legnth}, () => false);
+    let max = 0;
     
-    const DFS = (hp, L) => {
-        for (let i=0; i<dungeons.length; i++) {
-            // 방문X, 최소 필요 피로도 만족
-            if (!visited[i] && hp>=dungeons[i][0]) {
-                visited[i] = true;
-                DFS(hp-dungeons[i][1], L+1);
-                visited[i] = false;
-            }
-        };
-        answer = Math.max(answer, L);
+    const func = (arr, idx, cnt, hp) => {
+        const fixed = arr[idx];
+        const rest = [...arr.slice(0,idx), ...arr.slice(idx+1)];
+        hp -= fixed[1];
+        
+        // 모든 던전 돌았으면 리턴
+        if (arr.length===1) {
+            max = Math.max(max, cnt);
+            return;
+        }
+        
+        // 다음 던전 선택
+        for (let i=0; i<rest.length; i++) {
+            if (hp>=rest[i][0]) func(rest, i, cnt+1, hp);
+            else max = Math.max(max, cnt);
+        }
     };
-    DFS(k, 0);
-    return answer;
+    
+    for (let i=0; i<dungeons.length; i++) {
+        func(dungeons, i, 1, k);
+    };
+    
+    return max;
 }
