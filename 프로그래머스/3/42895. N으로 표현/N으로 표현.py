@@ -1,10 +1,8 @@
 def solution(N, number):
-    sets = [set() for x in range(8)]
-    
-    for i,x in enumerate(sets,start=1):
-        x.add(int(str(N)*i))
+    sets = [set() for _ in range(8)]
+    for i,s in enumerate(sets, start=1):
+        s.add(int(str(N)*i))
         
-    answer = -1
     for i in range(len(sets)):
         for j in range(i):
             for op1 in sets[j]:
@@ -15,6 +13,5 @@ def solution(N, number):
                     if op2!=0 and op1%op2==0:
                         sets[i].add(op1//op2)
         if number in sets[i]:
-            answer = i+1
-            break
-    return answer
+            return i+1
+    return -1
