@@ -3,22 +3,22 @@ import java.util.Collections;
 
 class Solution {
     public int solution(int[] priorities, int location) {
+        int answer = 0;
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
-        for (int num:priorities) {
-            pq.offer(num);
+        
+        for (int num: priorities) {
+            pq.add(num);
         }
         
-        int cnt = 0;
         while (!pq.isEmpty()) {
             for (int i=0; i<priorities.length; i++) {
-                if (pq.peek()==priorities[i]) {
+                if (priorities[i]==pq.peek()) {
                     pq.poll();
-                    cnt++;
-                    
-                    if (i==location) return cnt;
+                    answer++;
+                    if (i==location) return answer;
                 }
             }
         }
-        return cnt;
+        return answer;
     }
 }
