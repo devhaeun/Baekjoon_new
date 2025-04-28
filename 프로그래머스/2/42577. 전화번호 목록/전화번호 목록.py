@@ -1,6 +1,11 @@
 def solution(phone_book):
-    phone_book.sort();
-    for i in range(len(phone_book)-1):
-        if (len(phone_book[i+1])>=len(phone_book[i]) and phone_book[i]==phone_book[i+1][:len(phone_book[i])]):
-            return False;
-    return True;
+    hm = {}
+    for phone_number in phone_book:
+        hm[phone_number]=1
+    for phone_number in phone_book:
+        temp = ""
+        for number in phone_number:
+            temp+=number
+            if temp in hm and temp!=phone_number:
+                return False
+    return True
