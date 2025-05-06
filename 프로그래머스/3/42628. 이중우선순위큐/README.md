@@ -1,10 +1,10 @@
 # [level 3] 이중우선순위큐 - 42628 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42628#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42628) 
 
 ### 성능 요약
 
-메모리: 51.1 MB, 시간: 151.61 ms
+메모리: 15.6 MB, 시간: 275.13 ms
 
 ### 구분
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 03월 20일 10:48:04
+2025년 05월 06일 23:25:44
 
 ### 문제 설명
 
