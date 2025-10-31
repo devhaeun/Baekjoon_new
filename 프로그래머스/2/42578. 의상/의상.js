@@ -1,13 +1,14 @@
 function solution(clothes) {
-    const coni = new Map();
-    clothes.map(v => {
-        if (coni.get(v[1])) coni.set(v[1], coni.get(v[1])+1);
-        else coni.set(v[1], 1);
-    });
+    const map = new Map();
     
-    let result = 1;
-    for (let v of coni.values()) {
-        result *= v+1
+    for (let cloth of clothes) {
+        map.set(cloth[1], (map.get(cloth[1])||0)+1);
     }
-    return result-1;
+    
+    let count = 1;
+    for (let value of map.values()) {
+        count *= value+1;
+    }
+    
+    return count-1;
 }
