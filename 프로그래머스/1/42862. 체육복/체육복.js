@@ -1,23 +1,34 @@
 function solution(n, lost, reserve) {
-    const students = Array(n).fill(1);
-    lost.forEach(v=>students[v-1]-=1);
-    reserve.forEach(v=>students[v-1]+=1);
+    let count = 0;
     
-    for (let i=0; i<n; i++) {
-        if (students[i]===0) {
-            if (i>0 && students[i-1]===2) {
-                students[i-1]=1;
-                students[i]=1;
-            } else if (i<n-1 && students[i+1]===2) {
-                students[i]=1;
-                students[i+1]=1;
+    const map = new Map();
+    for (let i=1; i<=n; i++) {
+        map.set(i, 1);
+    }
+    
+    for (let r of reserve) {
+        map.set(r, map.get(r)+1);
+    }
+    
+    for (let l of lost) {
+        map.set(l, map.get(l)-1);
+    }
+    
+    for (let [key, value] of map) {
+        if (value===0) {
+            if (map.get(key-1)===2) {
+                map.set(key-1, 1);
+                map.set(key, 1);
+                continue;
+            } else if (map.get(key+1)===2) {
+                map.set(key+1, 1);
+                map.set(key, 1);
+                continue;
+            } else {
+                count++;
             }
         }
     }
     
-    let count = n;
-    students.map(v => {
-        if (v===0) count--;
-    });
-    return count;
+    return n-count;
 }
