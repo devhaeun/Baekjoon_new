@@ -1,28 +1,28 @@
 function solution(maps) {
-    const n = maps.length;
-    const m = maps[0].length;
-    const dir = [[-1,0], [1,0], [0,-1], [0,1]];
+    // 우하좌상
+    const dr = [0, 1, 0, -1];
+    const dc = [1, 0, -1, 0];
     
-    const bfs = () => {
-        const queue = [[0,0,1]]; // 행, 열, 이동거리
-        maps[0][0] = 0;
+    const mrows = maps.length;
+    const mcols = maps[0].length;
+    
+    const queue = [[[0, 0], 1]];
+    maps[0][0] = 0;
+    
+    while (queue.length>0) {
+        const [[r, c], cnt] = queue.shift();
         
-        while (queue.length>0) {
-            const [row, col, dist] = queue.shift();
-            
-            if (row===n-1 && col===m-1) return dist;
-            
-            for (let [r,c] of dir) {
-                const newRow = row+r;
-                const newCol = col+c;
-                
-                if (newRow>=0 && newRow<n && newCol>=0 && newCol<m && maps[newRow][newCol]===1) {
-                    queue.push([newRow, newCol, dist+1]);
-                    maps[newRow][newCol] = 0;
-                }
+        if (r===mrows-1 && c===mcols-1) return cnt;
+        
+        for (let i=0; i<4; i++) {
+            const nr = r + dr[i];
+            const nc = c + dc[i];
+            if (nr>=0 && nr<mrows && nc>=0 && nc<mcols && maps[nr][nc]) {
+                queue.push([[nr, nc], cnt+1]);
+                maps[nr][nc] = 0;
             }
         }
-        return -1;
-    };
-    return bfs();
+    }
+    
+    return -1;
 }
