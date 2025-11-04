@@ -1,6 +1,6 @@
 # [level 3] 물고기 종류 별 대어 찾기 - 293261 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/293261#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/293261) 
 
 ### 성능 요약
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2025년 11월 03일 20:03:18
+2025년 11월 04일 15:12:22
 
 ### 문제 설명
 
