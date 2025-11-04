@@ -1,27 +1,28 @@
 function solution(begin, target, words) {
-    if (!words.includes(target)) return 0;
-    
-    const isConvertible = (w1, w2) => {
-        let diff = 0;
-        for (let i=0; i<w1.length; i++) {
-            if (w1[i]!==w2[i]) diff++;
-            if (diff>1) return false;
-        }
-        return diff===1;
-    };
+    const visited = new Array(words.length).fill(false);
+    const wordLen = target.length;
     
     const queue = [[begin, 0]];
-    const visited = new Set();
     
     while (queue.length>0) {
-        const [cur, cnt] = queue.shift();
+        const [word, cnt] = queue.shift();
         
-        if (cur===target) return cnt;
+        if (word===target) return cnt;
         
-        for (const word of words) {
-            if (!visited.has(word) && isConvertible(cur,word)) {
-                visited.add(word);
-                queue.push([word, cnt+1]);
+        for (let i=0; i<words.length; i++) {
+            if (visited[i]) continue;
+            
+            let diff = 0;
+            for (let j=0; j<wordLen; j++) {
+                if (words[i][j] !== word[j]) {
+                    diff++;
+                    if (diff>1) break;
+                }
+            }
+            
+            if (diff===1) {
+                queue.push([words[i], cnt+1]);
+                visited[i] = true;
             }
         }
     }
