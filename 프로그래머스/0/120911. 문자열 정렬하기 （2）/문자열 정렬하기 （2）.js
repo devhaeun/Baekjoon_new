@@ -1,4 +1,3 @@
 function solution(my_string) {
-    let result = [...my_string.toLowerCase()].sort();
-    return result.join('');
+    return my_string.toLowerCase().split('').sort().join('');
 }
