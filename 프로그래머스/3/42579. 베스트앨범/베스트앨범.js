@@ -1,32 +1,37 @@
 function solution(genres, plays) {
-    const hash = [];
-    for (let i=0; i<genres.length; i++) {
-        hash.push({idx: i, genre: genres[i], play: plays[i]});
-    };
+    const n = genres.length;
     
-    const genreCnt = [];
-    hash.forEach(song => {
-        const thisGenre = genreCnt.find(v => v.genre===song.genre);
-        if (thisGenre) thisGenre.play += song.play;
-        else genreCnt.push({genre: song.genre, play: song.play});
-    });
+    // 1. 장르 별 재생횟수 구하기
+    const genreMap = new Map();
+    for (let i=0; i<n; i++) {
+        genreMap.set(genres[i], (genreMap.get(genres[i])||0)+plays[i]);
+    }
     
-    // 두 배열 내림차순 정렬
-    hash.sort((a,b) => a.play===b.play ? a.idx-b.idx : b.play-a.play);
-    genreCnt.sort((a,b) => b.play-a.play);
+    const genreOrder = [];
+    for (let [key, val] of genreMap) {
+        genreOrder.push({genre: key, count: val});
+    }
+    genreOrder.sort((a,b) => b.count - a.count);
     
-    console.log(hash);
+    // 2. 곡 별 재생횟수 구하기
+    const playsOrder = [];
+    for (let i=0; i<n; i++) {
+        playsOrder.push({number: i, plays: plays[i]});
+    }
+    playsOrder.sort((a,b) => b.plays - a.plays);
     
-    // 리턴
-    const result = [];
-    genreCnt.forEach(genre => {
-        let cnt=0;
-        hash.forEach(song => {
-            if (song.genre===genre.genre && cnt<2) {
-                result.push(song.idx);
+    // 3. 전체 정렬
+    const answer = [];
+    for (let g of genreOrder) {
+        let cnt = 0;
+        for (let p of playsOrder) {
+            if (genres[p.number]===g.genre) {
+                answer.push(p.number);
                 cnt++;
             }
-        });
-    });
-    return result;
+            if (cnt >= 2) break;
+        }
+    }
+    
+    return answer;
 }
